@@ -21,18 +21,19 @@ let modifyFile3 = (val) => {
 // TODO: Kerjakan bacaData
 // gunakan variabel file1, file2, dan file3
 
-const bacaData = () => {
+const bacaData = (fnCallback) => {
+  
   fs.readFile(file1, "utf8", (err, data1) => {
     if (err) {
-      return console.log("Terjadi error file1", err);
+      return fnCallback(err, null);
     }
     fs.readFile(file2, "utf8", (err, data2) => {
       if (err) {
-        return console.log("Terjadi error file2", err);
+        return fnCallback(err, null);
       }
       fs.readFile(file3, "utf8", (err, data3) => {
         if (err) {
-          return console.log("Terjadi error file3", err);
+          return fnCallback(err, null);
         }
 
         let dataPertama = JSON.parse(data1);
@@ -44,8 +45,9 @@ const bacaData = () => {
         let message3 = dataKetiga[0].data.message.split(" ");
 
         let arrMessage = [];
+
         arrMessage.push(message1[1], message2[1], message3[1]);
-        console.log(arrMessage);
+        fnCallback(null, arrMessage);
       });
     });
   });
