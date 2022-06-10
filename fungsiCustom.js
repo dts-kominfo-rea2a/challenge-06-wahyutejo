@@ -1,4 +1,6 @@
 // TODO: import module bila dibutuhkan di sini
+const { default: file } = require("@babel/core/lib/transformation/file/file");
+const fs = require("fs");
 
 // ! JANGAN DIMODIFIKASI
 let file1 = "./data1.json";
@@ -18,7 +20,36 @@ let modifyFile3 = (val) => {
 
 // TODO: Kerjakan bacaData
 // gunakan variabel file1, file2, dan file3
-const bacaData = null;
+
+const bacaData = () => {
+  fs.readFile(file1, "utf8", (err, data1) => {
+    if (err) {
+      return console.log("Terjadi error file1", err);
+    }
+    fs.readFile(file2, "utf8", (err, data2) => {
+      if (err) {
+        return console.log("Terjadi error file2", err);
+      }
+      fs.readFile(file3, "utf8", (err, data3) => {
+        if (err) {
+          return console.log("Terjadi error file3", err);
+        }
+
+        let dataPertama = JSON.parse(data1);
+        let dataKedua = JSON.parse(data2);
+        let dataKetiga = JSON.parse(data3);
+
+        let message1 = dataPertama.message.split(" ");
+        let message2 = dataKedua[0].message.split(" ");
+        let message3 = dataKetiga[0].data.message.split(" ");
+
+        let arrMessage = [];
+        arrMessage.push(message1[1], message2[1], message3[1]);
+        console.log(arrMessage);
+      });
+    });
+  });
+};
 
 // ! JANGAN DIMODIFIKASI
 module.exports = {
